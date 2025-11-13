@@ -7,7 +7,7 @@ let app = express()
 const server=http.createServer(app)
 const io=new Server(server,{
     cors:{
-        origin:"https://chatly-qd70.onrender.com"
+        origin:"https://chatly-frontend-0fhz.onrender.com"
     }
 })
  const userSocketMap ={}
