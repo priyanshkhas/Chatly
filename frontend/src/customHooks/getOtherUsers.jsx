@@ -1,29 +1,23 @@
-// customHooks/getOtherUsers.js
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { setUserData, setOtherUsers } from "../redux/userSlice";
-import { serverUrl } from "../main";
+import axios from "axios"
+import { useEffect } from "react"
+import { serverUrl } from "../main"
+import { useDispatch, useSelector } from "react-redux"
+import { setOtherUsers, setUserData } from "../redux/userSlice"
 
-const getOtherUsers = () => {
-  const dispatch = useDispatch();
-  let {userData} = useSelector(state => state.user);
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const result = await axios.get(`${serverUrl}/api/user/others`, {
-          withCredentials: true,
-        });
-        dispatch(setOtherUsers(result.data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
+const getOtherUsers=()=>{
+    let dispatch=useDispatch()
+    let {userData}=useSelector(state=>state.user)
+    useEffect(()=>{
+        const fetchUser=async ()=>{
+            try {
+                let result=await axios.get(`${serverUrl}/api/user/others`,{withCredentials:true})
+                dispatch(setOtherUsers(result.data))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchUser()
+    },[userData])
+}
 
-    fetchUser();
-  }, [userData]);
-
-  return null; // Return null since this is a custom hook
-};
-
-export default getOtherUsers;
+export default getOtherUsers
